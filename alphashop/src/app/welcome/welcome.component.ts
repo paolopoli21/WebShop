@@ -20,4 +20,8 @@ export class WelcomeComponent implements OnInit {
     this.utente = this.route.snapshot.params['userid'];
   }
 
+  getSaluti(){
+    console.log("hai cliccato il tasto saluti");
+  }
+
 }
