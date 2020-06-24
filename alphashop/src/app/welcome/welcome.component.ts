@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SalutiDataService } from '../services/data/saluti-data.service';
 
 @Component({
   selector: 'app-welcome',
@@ -14,14 +15,15 @@ export class WelcomeComponent implements OnInit {
 
   utente = "";
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private salutiSrv: SalutiDataService) { }
 
   ngOnInit(): void {
     this.utente = this.route.snapshot.params['userid'];
   }
 
   getSaluti(){
-    console.log("hai cliccato il tasto saluti");
+    //Paul
+    this.salutiSrv.getSaluti();
   }
 
 }
