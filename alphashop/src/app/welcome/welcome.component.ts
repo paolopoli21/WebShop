@@ -22,7 +22,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   getSaluti(){
-    //Paul
     this.salutiSrv.getSaluti();
   }
 

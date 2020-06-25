@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Software\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj": {}
+    "C:\\Software\\WebShop2\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj": {}
   },
   "projects": {
-    "C:\\Software\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj": {
+    "C:\\Software\\WebShop2\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Software\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj",
+        "projectUniqueName": "C:\\Software\\WebShop2\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj",
         "projectName": "Articoli-Web-Service",
-        "projectPath": "C:\\Software\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj",
+        "projectPath": "C:\\Software\\WebShop2\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj",
         "packagesPath": "C:\\Users\\PAUL\\.nuget\\packages\\",
-        "outputPath": "C:\\Software\\WebShop\\backend\\ArticoliWebService\\obj\\",
+        "outputPath": "C:\\Software\\WebShop2\\WebShop\\backend\\ArticoliWebService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PAUL\\AppData\\Roaming\\NuGet\\NuGet.Config",
