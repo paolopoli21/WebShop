@@ -22,7 +22,13 @@ export class WelcomeComponent implements OnInit {
   }
 
   getSaluti(){
-    this.salutiSrv.getSaluti();
+    console.log(this.salutiSrv.getSaluti());
+    this.salutiSrv.getSaluti().subscribe(
+      response => this.handleResponse(response)
+    );
   }
 
+  handleResponse(response: object){
+    console.log(response);
+  }
 }
