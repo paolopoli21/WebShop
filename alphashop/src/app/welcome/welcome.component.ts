@@ -28,7 +28,8 @@ export class WelcomeComponent implements OnInit {
     );
   }
 
-  handleResponse(response: object){
+  handleResponse(response){
+    this.messaggio = response;
     console.log(response);
   }
 }

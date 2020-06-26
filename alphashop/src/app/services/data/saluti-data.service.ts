@@ -10,6 +10,6 @@ export class SalutiDataService {
 
   getSaluti(){
     //console.log("Saluti");
-    return this.httpClient.get('http://http://localhost:8050/api/saluti/Paul');
+    return this.httpClient.get('http://localhost:8050/api/saluti/Paul');
   }
 }
