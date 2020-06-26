@@ -22,8 +22,21 @@ export class WelcomeComponent implements OnInit {
   }
 
   getSaluti(){
-    //Paul
-    this.salutiSrv.getSaluti();
+    console.log(this.salutiSrv.getSaluti());
+    this.salutiSrv.getSaluti().subscribe(
+      response => this.handleResponse(response),
+      error => this.handleError(error)
+    );
   }
 
+  handleResponse(response){
+    this.messaggio = response;
+    console.log(response);
+  }
+
+  handleError(error){
+    this.messaggio = error.error.message;
+    
+    
+  }
 }
