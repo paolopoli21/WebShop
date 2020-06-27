@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ArticoliWebService.Models
 {
     public class ingredientics

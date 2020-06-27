@@ -12,5 +12,7 @@ namespace ArticoliWebService.Models
         [Required]
         public string IdTipoArt { get; set; }
 
+        public virtual Articoli articolo { get; set; }
+
     }
 }

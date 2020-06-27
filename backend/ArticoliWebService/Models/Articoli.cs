@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ArticoliWebService.Models
@@ -22,6 +23,9 @@ namespace ArticoliWebService.Models
         public int? IdFamAss { get; set; }
         public string IdStatoArt { get; set; }
         public DateTime? DataCreazione { get; set; }
+
+        public virtual ICollection<Ean> Barcode { get; set; }
+        //public virtual MyProperty { get; set; }
 
     }
 }
