@@ -31,7 +31,9 @@ namespace Articoli_Web_Service
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
                 });
             });
-            services.AddScoped<IArticoliRepository, ArticoliRepisitory>();
+            var connectionString = Configuration["connectionStrings: alphashopDbConString"];
+            
+            services.AddScoped<IArticoliRepository, ArticoliRepository>();
             services.AddControllers();
         }
 
