@@ -32,7 +32,7 @@ namespace Articoli_Web_Service
                 });
             });
             var connectionString = Configuration["connectionStrings: alphashopDbConString"];
-            
+            //services.AddDbContext<AlphaShopDbContext>(c => c.use);
             services.AddScoped<IArticoliRepository, ArticoliRepository>();
             services.AddControllers();
         }
