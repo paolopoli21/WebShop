@@ -25,7 +25,10 @@ namespace ArticoliWebService.Models
         public DateTime? DataCreazione { get; set; }
 
         public virtual ICollection<Ean> Barcode { get; set; }
-        //public virtual MyProperty { get; set; }
+        public virtual Ingredienti ingredienti  { get; set; }
+
+        public virtual Iva iva { get; set; }
+        public FamAssort famAssort { get; set; }
 
     }
 }

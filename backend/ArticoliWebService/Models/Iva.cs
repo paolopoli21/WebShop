@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ArticoliWebService.Models
@@ -10,5 +11,6 @@ namespace ArticoliWebService.Models
         public string Descrizone {get; set;}
         [Required]
         public Int16 Aliquota { get; set; }
+        public ICollection<Articoli> articoli { get; set; }
     }
 }
