@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ArticoliWebService.Dtos;
 using ArticoliWebService.Models;
 using ArticoliWebService.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +21,24 @@ namespace ArticoliWebService.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type =  typeof(IEnumerable<Articoli>))]
         public IActionResult GetArticoliByDesc(string filter){
+            var articoliDto = new List<ArticoliDto>() ;
             var articoli = this.articolirepository.SelArticoliByDescrizione(filter);
-            return Ok(articoli);
+               if(!ModelState.IsValid){
+                return BadRequest(ModelState);
+            } 
+            foreach(var articolo in articoli){
+                articoliDto.Add(new ArticoliDto{
+                    CodArt = articolo.CodArt,
+                    Descrizione = articolo.Descrizione,
+                    Um = articolo.Um,
+                    CodStat = articolo.CodStat,
+                    PzCart = articolo.PzCart,
+                    PesoNetto = articolo.PesoNetto,
+                    DataCreazione = articolo.DataCreazione,
+                    //IdStatoArt = articolo.IdStatoArt
+                });
+            }
+            return Ok(articoliDto);
         }
     }
 }
