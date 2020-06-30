@@ -8,7 +8,7 @@ namespace ArticoliWebService.Services
     {
         Task<ICollection<Articoli>> SelArticoliByDescrizione(string Descrizione);
 
-        Articoli SelArticoloByCodice(string Code);
+        Task<Articoli> SelArticoloByCodice(string Code);
 
         Articoli SelArticoloByEan(string Ean);
 
