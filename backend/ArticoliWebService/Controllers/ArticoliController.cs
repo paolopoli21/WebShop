@@ -71,5 +71,29 @@ namespace ArticoliWebService.Controllers
             };
             return Ok(articoliDto);
         }
+
+        [HttpGet("cerca/barcode/{Ean}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(200, Type = typeof(ArticoliDto))]
+        public async Task<IActionResult> GetArticoliByEan(string Ean){
+            var articolo = await this.articolirepository.SelArticoloByEan(Ean);
+            if(articolo == null){
+                return NotFound(string.Format("Articolo non trovato '{0}'", Ean));
+            }
+            var articoliDto = new ArticoliDto
+            {
+                CodArt = articolo.CodArt,
+                Descrizione = articolo.Descrizione,
+                Um = articolo.Um,
+                CodStat = articolo.CodStat,
+                PzCart = articolo.PzCart,
+                PesoNetto = articolo.PesoNetto,
+                DataCreazione = articolo.DataCreazione
+                // Categoria = articolo.famAssort.Descrizione,
+                // IdStatoArt = articolo.IdStatoArt
+            };
+            return Ok(articoliDto);
+        }
     }
 }

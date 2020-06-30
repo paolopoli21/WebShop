@@ -10,7 +10,7 @@ namespace ArticoliWebService.Services
 
         Task<Articoli> SelArticoloByCodice(string Code);
 
-        Articoli SelArticoloByEan(string Ean);
+        Task<Articoli> SelArticoloByEan(string Ean);
 
         bool InsArticolo(Articoli articolo);
 
