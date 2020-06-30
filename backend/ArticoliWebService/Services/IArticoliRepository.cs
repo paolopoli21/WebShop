@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ArticoliWebService.Models;
 
 namespace ArticoliWebService.Services
 {
     public interface IArticoliRepository
     {
-        ICollection<Articoli> SelArticoliByDescrizione(string Descrizione);
+        Task<ICollection<Articoli>> SelArticoliByDescrizione(string Descrizione);
 
         Articoli SelArticoloByCodice(string Code);
 

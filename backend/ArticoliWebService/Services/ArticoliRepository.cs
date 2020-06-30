@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ArticoliWebService.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ArticoliWebService.Services
 {
@@ -12,12 +14,12 @@ namespace ArticoliWebService.Services
         {
             this.alphaShopDbContext = alphaShopDbContext;
         }
-        public ICollection<Articoli> SelArticoliByDescrizione(string Descrizione)
+        public async Task<ICollection<Articoli>> SelArticoliByDescrizione(string Descrizione)
         {
-              return this.alphaShopDbContext.Articoli
+              return await this.alphaShopDbContext.Articoli
                     .Where(a => a.Descrizione.Contains(Descrizione))
                     .OrderBy(a => a.Descrizione)
-                    .ToList();  
+                    .ToListAsync();  
         }
         
         public Articoli SelArticoloByCodice(string Code)
