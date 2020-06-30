@@ -26,6 +26,11 @@ namespace ArticoliWebService.Controllers
                if(!ModelState.IsValid){
                 return BadRequest(ModelState);
             } 
+
+            if(articoli.Count == 0){
+                return NotFound(string.Format("Non è stato trovato alcun articolo con il filtro '{0}'", filter));
+            }
+
             foreach(var articolo in articoli){
                 articoliDto.Add(new ArticoliDto{
                     CodArt = articolo.CodArt,
