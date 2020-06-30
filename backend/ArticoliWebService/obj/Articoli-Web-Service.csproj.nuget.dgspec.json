@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Software\\webShop2\\webShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj": {}
+    "C:\\Software\\WebShop2\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj": {}
   },
   "projects": {
-    "C:\\Software\\webShop2\\webShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj": {
+    "C:\\Software\\WebShop2\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Software\\webShop2\\webShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj",
+        "projectUniqueName": "C:\\Software\\WebShop2\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj",
         "projectName": "Articoli-Web-Service",
-        "projectPath": "C:\\Software\\webShop2\\webShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj",
+        "projectPath": "C:\\Software\\WebShop2\\WebShop\\backend\\ArticoliWebService\\Articoli-Web-Service.csproj",
         "packagesPath": "C:\\Users\\PAUL\\.nuget\\packages\\",
-        "outputPath": "C:\\Software\\webShop2\\webShop\\backend\\ArticoliWebService\\obj\\",
+        "outputPath": "C:\\Software\\WebShop2\\WebShop\\backend\\ArticoliWebService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PAUL\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,7 +40,7 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "(, )"
+              "version": "[2.2.6, )"
             }
           },
           "imports": [

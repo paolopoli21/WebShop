@@ -16,9 +16,9 @@ namespace ArticoliWebService.Models
         public string Um { get; set; }
         public string CodStat { get; set; }
         [Range(0, 100 , ErrorMessage="i pezzi per cartone devono essere compresi fra 0 e 100")]
-        public int? PzCart { get; set; }
+        public Int16? PzCart { get; set; }
 
-        public int? PesoNetto { get; set; }
+        public double? PesoNetto { get; set; }
         public int? IdIva {get; set;}
         public int? IdFamAss { get; set; }
         public string IdStatoArt { get; set; }
