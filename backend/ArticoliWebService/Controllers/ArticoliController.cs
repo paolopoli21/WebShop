@@ -56,6 +56,16 @@ namespace ArticoliWebService.Controllers
             }
 
             var articolo = await this.articolirepository.SelArticoloByCodice(CodArt);
+            var barcodeDto = new List<BarcodeDto>();
+             foreach(var ean in articolo.Barcode)
+            {
+                barcodeDto.Add(new BarcodeDto
+                {
+                    Barcode = ean.Barcode,
+                    Tipo = ean.IdTipoArt
+                });
+            }
+
             var articoliDto = new ArticoliDto
             {
                 CodArt = articolo.CodArt,
@@ -64,8 +74,8 @@ namespace ArticoliWebService.Controllers
                 CodStat = articolo.CodStat,
                 PzCart = articolo.PzCart,
                 PesoNetto = articolo.PesoNetto,
-                DataCreazione = articolo.DataCreazione
-                // Ean = barcodeDto,
+                DataCreazione = articolo.DataCreazione,
+                Ean = barcodeDto
                 // Categoria = articolo.famAssort.Descrizione,
                 // IdStatoArt = articolo.IdStatoArt
             };
