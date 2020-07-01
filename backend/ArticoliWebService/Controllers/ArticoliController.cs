@@ -40,8 +40,8 @@ namespace ArticoliWebService.Controllers
                     CodStat = articolo.CodStat,
                     PzCart = articolo.PzCart,
                     PesoNetto = articolo.PesoNetto,
-                    DataCreazione = articolo.DataCreazione
-                    //IdStatoArt = articolo.IdStatoArt
+                    DataCreazione = articolo.DataCreazione,
+                    IdStatoArt = articolo.IdStatoArt
                 });
             }
             return Ok(articoliDto);
@@ -76,8 +76,8 @@ namespace ArticoliWebService.Controllers
                 PesoNetto = articolo.PesoNetto,
                 DataCreazione = articolo.DataCreazione,
                 Ean = barcodeDto,
-                Categoria = articolo.famAssort.Descrizione
-                // IdStatoArt = articolo.IdStatoArt
+                Categoria = articolo.famAssort.Descrizione,
+                IdStatoArt = articolo.IdStatoArt
             };
             return Ok(articoliDto);
         }
@@ -100,8 +100,8 @@ namespace ArticoliWebService.Controllers
                 PzCart = articolo.PzCart,
                 PesoNetto = articolo.PesoNetto,
                 DataCreazione = articolo.DataCreazione,
-                Categoria = articolo.famAssort.Descrizione
-                // IdStatoArt = articolo.IdStatoArt
+                Categoria = articolo.famAssort.Descrizione,
+                IdStatoArt = articolo.IdStatoArt
             };
             return Ok(articoliDto);
         }
