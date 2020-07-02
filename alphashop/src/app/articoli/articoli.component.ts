@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ArticoliDataService } from '../services/articoli-data.service';
 
 export class Articoli{
@@ -21,6 +22,8 @@ export class Articoli{
 })
 export class ArticoliComponent implements OnInit {
   NumArt = 0;
+  pagina = 1;
+  righe = 10;
   // articoli = [
   //   new Articoli('014600301','BARILLA FARINA 1 KG','PZ',24,1,1.09,true,new Date()),
   //   new Articoli('013500121','BARILLA PASTA GR.500 N.70 1/2 PENNE','PZ',30,0.5,1.3,true,new Date()),
