@@ -24,6 +24,7 @@ export class ArticoliComponent implements OnInit {
   NumArt = 0;
   pagina = 1;
   righe = 10;
+  filter: string = '';
   // articoli = [
   //   new Articoli('014600301','BARILLA FARINA 1 KG','PZ',24,1,1.09,true,new Date()),
   //   new Articoli('013500121','BARILLA PASTA GR.500 N.70 1/2 PENNE','PZ',30,0.5,1.3,true,new Date()),
@@ -34,17 +35,27 @@ export class ArticoliComponent implements OnInit {
   articoli : Articoli[];
 
 
-  constructor(private articoliService : ArticoliDataService) { }
+  constructor(private route:ActivatedRoute,private articoliService : ArticoliDataService) { }
 
   ngOnInit(): void {
-    this.articoliService.getArticoli('Barilla').subscribe(
-      response => {
-        console.log(response);
-        this.articoli = response;
-        this.NumArt = this.articoli.length;
-      }
-    );
-
+    this.filter = this.route.snapshot.params['filter'];
+    this.getArticoli(this.filter);
   }
 
+  public getArticoli(filter: string) {
+
+    this.articoliService.getArticoli(filter).subscribe(
+      response => {
+
+        //this.articoli = null;
+        console.log('Ricerchiamo articoli con filtro ' + filter);
+
+        this.articoli = response;
+        console.log(this.articoli);
+        
+        this.NumArt = this.articoli.length
+        console.log(this.articoli.length);
+      } 
+    )
+  }
 }
