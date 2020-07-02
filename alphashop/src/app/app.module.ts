@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule} from '@angular/common/http';
+import { NgxPaginationModule} from 'ngx-pagination';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
@@ -24,7 +25,8 @@ import { LogoutComponent } from './logout/logout.component';
     NavbarComponent,
     FooterComponent,
     JumbotronComponent,
-    LogoutComponent
+    LogoutComponent,
+    NgxPaginationModule
   ],
   imports: [
     BrowserModule,

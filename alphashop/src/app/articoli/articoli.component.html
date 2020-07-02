@@ -50,11 +50,11 @@
     <tbody>
         <tr *ngFor="let articolo of articoli">
             <td>{{articolo.codArt}}</td>
-            <td>{{articolo.descrizione}}</td>
+            <td class="text-left">{{articolo.descrizione}}</td>
             <td>{{articolo.um}}</td>
             <td>{{articolo.pzCart}}</td>
             <td>{{articolo.pesoNetto}}</td>
-            <td>{{articolo.prezzo | currency: 'EUR'}}</td>
+            <td class="text-right">{{articolo.prezzo | currency:'EUR'}}</td>
             <td>{{articolo.idStatoArt}}</td>
             <td>{{articolo.dataCreazione | date}}</td>
         </tr>   
