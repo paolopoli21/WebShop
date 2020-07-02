@@ -1,6 +1,41 @@
-<h1>Articoli con la rama 1 di nuovo</h1>
+<app-jumbotron [Titolo]="'Ricerca Articoli'" [SottoTitolo]="'Ricerca gli articoli per descrizione o codice'" [Show]="false"></app-jumbotron>
+<section class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-5">
+                  <h2>Risultati Ricerca: <small>Trovati {{NumArt}} Articoli</small></h2>
+                </div>
+                <div class="col-sm-7">	
+                  
+                </div>
+            </div>
+        </div> 
 
-<table id= "articoli" border = "1">
+        <div class="table-filter">
+            <div class="row">
+            <div class="col-sm-3">
+                <div class="show-entries">
+                    <span>Mostra</span>
+                    <select class="form-control">
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                        <option>50</option>
+                    </select>
+                    <span>righe</span>
+                </div>
+            </div>
+            <!-- <div class="col-sm-9">
+                <button type="button" (click) = "refresh()" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                <div class="filter-group">
+                    <label>Filtro: </label>
+                    <input type="text" class="form-control" [(ngModel)] = "filter">
+                </div>
+            </div> -->
+        </div>
+    </div>    
+<table id= "articoli" border = "1" class="table table-striped table-bordered table-hover">
     <caption>Alimentari</caption>
     <thead>
         <th>CodArt</th>
@@ -14,15 +49,16 @@
     </thead>
     <tbody>
         <tr *ngFor="let articolo of articoli">
-            <td>{{articolo.codart}}</td>
+            <td>{{articolo.codArt}}</td>
             <td>{{articolo.descrizione}}</td>
             <td>{{articolo.um}}</td>
-            <td>{{articolo.pzcart}}</td>
-            <td>{{articolo.peso}}</td>
-            <td>{{articolo.prezzo}}</td>
-            <td>{{articolo.isactive}}</td>
-            <td>{{articolo.data | date}}</td>
+            <td>{{articolo.pzCart}}</td>
+            <td>{{articolo.pesoNetto}}</td>
+            <td>{{articolo.prezzo | currency: 'EUR'}}</td>
+            <td>{{articolo.idStatoArt}}</td>
+            <td>{{articolo.dataCreazione | date}}</td>
         </tr>   
     </tbody>
-
 </table>
+</div>
+</section>
