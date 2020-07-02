@@ -42,6 +42,10 @@ export class ArticoliComponent implements OnInit {
     this.getArticoli(this.filter);
   }
 
+  refresh(){
+    this.getArticoli(this.filter);
+  }
+
   public getArticoli(filter: string) {
 
     this.articoliService.getArticoli(filter).subscribe(
