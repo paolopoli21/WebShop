@@ -46,7 +46,7 @@ namespace ArticoliWebService.Controllers
             }
             return Ok(articoliDto);
         }
-        [HttpGet("cerca/codice/{CodArt}")]
+        [HttpGet("cerca/codice/{CodArt}", Name = "GetArticoli")]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type =  typeof(ArticoliDto))]
@@ -104,6 +104,47 @@ namespace ArticoliWebService.Controllers
                 IdStatoArt = articolo.IdStatoArt
             };
             return Ok(articoliDto);
+        }
+
+        [HttpPost("inserisci")]
+        [ProducesResponseType(201, Type = typeof(Articoli))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(422)]
+        [ProducesResponseType(500)]
+        public IActionResult SaveArticoli([FromBody] Articoli articolo){
+            if(articolo == null){
+                return BadRequest(ModelState);
+            }
+            var isPresent = articolirepository.SelArticoloByCodice(articolo.CodArt);
+            if(isPresent != null){
+                ModelState.AddModelError("", $"Articolo {articolo.CodArt} presente nell'anagrafica");
+                return StatusCode(422, ModelState);
+            }
+
+             if (!ModelState.IsValid)
+            {
+                string ErrVal = "";
+
+                foreach (var modelState in ModelState.Values) 
+                {
+                    foreach (var modelError in modelState.Errors) 
+                    {
+                        ErrVal += modelError.ErrorMessage + " - "; 
+                    }
+                }
+
+                return BadRequest(ErrVal);
+                //return BadRequest(new InfoMsg(DateTime.Today, ErrVal));
+            }
+             //verifichiamo che i dati siano stati regolarmente inseriti nel database
+            if (!articolirepository.InsArticoli(articolo))
+            {
+                ModelState.AddModelError("", $"Ci sono stati problemi nell'inserimento dell'Articolo {articolo.CodArt}.  ");
+                return StatusCode(500, ModelState);
+                //return StatusCode(500, new InfoMsg(DateTime.Today, $"Ci sono stati problemi nell'inserimento dell'Articolo {articolo.CodArt}."));
+            }
+            return CreatedAtRoute("GetArticoli", new {codart = articolo.CodArt}, articolo);
+
         }
     }
 }
