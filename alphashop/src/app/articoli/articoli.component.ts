@@ -34,6 +34,8 @@ export class ArticoliComponent implements OnInit {
 
   articoli : Articoli[];
 
+  articolo: Articoli;
+
 
   constructor(private route:ActivatedRoute,private articoliService : ArticoliDataService) { }
 
@@ -48,18 +50,32 @@ export class ArticoliComponent implements OnInit {
 
   public getArticoli(filter: string) {
 
-    this.articoliService.getArticoli(filter).subscribe(
+    this.articoliService.getArticoliByCordArt(filter).subscribe(
       response => {
-
+        this.articoli = [];
         //this.articoli = null;
-        console.log('Ricerchiamo articoli con filtro ' + filter);
+        console.log('Ricerchiamo articoli per codice articolo con filtro ' + filter);
 
-        this.articoli = response;
-        console.log(this.articoli);
+        this.articolo = response;
+        console.log(this.articolo);
+
+        this.articoli.push(this.articolo);
         
         this.NumArt = this.articoli.length
         console.log(this.articoli.length);
-      } 
+      },
+       error =>{
+         console.log(error);
+         console.log("Ricerchiamo per descrizione con filtro" + filter);
+         this.articoliService.getArticoliByDescription(filter).subscribe(
+            response => {
+              this.articoli = response;
+              this.NumArt = this.articoli.length
+              console.log(this.articoli.length);
+            }
+         );
+
+       }
     )
   }
 }
