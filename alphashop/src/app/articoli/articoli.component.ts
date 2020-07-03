@@ -65,17 +65,36 @@ export class ArticoliComponent implements OnInit {
         console.log(this.articoli.length);
       },
        error =>{
-         console.log(error);
+         console.log(error.error);
          console.log("Ricerchiamo per descrizione con filtro" + filter);
          this.articoliService.getArticoliByDescription(filter).subscribe(
             response => {
+              this.articoli = [];
               this.articoli = response;
               this.NumArt = this.articoli.length
               console.log(this.articoli.length);
+            },
+            error =>{
+              console.log(error.error);
+              console.log("Ricerchiamo per barcoe con filtro" + filter);
+              this.articoliService.getArticoliByEan(filter).subscribe(
+                response =>{
+                  this.articoli = [];
+                  this.articolo = response;
+                  this.articoli.push(this.articolo);
+                  this.NumArt = this.articoli.length
+                  console.log(this.articoli.length);
+                },
+                error =>{
+                  console.log(error.error);
+                  this.articoli = [];
+                }
+              );
             }
          );
 
        }
+      
     )
   }
 }
