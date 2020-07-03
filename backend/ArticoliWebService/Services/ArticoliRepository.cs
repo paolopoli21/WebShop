@@ -41,19 +41,22 @@ namespace ArticoliWebService.Services
         }
 
         
-        public bool InsArticolo(Articoli articolo)
+        public bool InsArticoli(Articoli articolo)
         {
-            throw new System.NotImplementedException();
+            this.alphaShopDbContext.Add(articolo);
+            return Salva();
         }
 
           public bool UpdArticoli(Articoli articolo)
         {
-            throw new System.NotImplementedException();
+            this.alphaShopDbContext.Update(articolo);
+            return Salva();
         }
 
         public bool DelArticoli(Articoli articolo)
         {
-            throw new System.NotImplementedException();
+            this.alphaShopDbContext.Remove(articolo);
+            return Salva();
         }
 
         public bool ArticoloExits(string Code)
@@ -64,7 +67,8 @@ namespace ArticoliWebService.Services
 
         public bool Salva()
         {
-            throw new System.NotImplementedException();
+            var saved = this.alphaShopDbContext.SaveChanges();
+            return saved > 0;
         }
 
 

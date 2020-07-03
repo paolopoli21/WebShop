@@ -12,7 +12,7 @@ namespace ArticoliWebService.Services
 
         Task<Articoli> SelArticoloByEan(string Ean);
 
-        bool InsArticolo(Articoli articolo);
+        bool InsArticoli(Articoli articolo);
 
         bool UpdArticoli(Articoli articolo);
 
