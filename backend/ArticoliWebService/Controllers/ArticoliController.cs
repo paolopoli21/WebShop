@@ -117,7 +117,7 @@ namespace ArticoliWebService.Controllers
             if(articolo == null){
                 return BadRequest(ModelState);
             }
-            var isPresent = articolirepository.SelArticoloByCodice(articolo.CodArt);
+            var isPresent = articolirepository.SelArticoloByCodice2(articolo.CodArt);
             if(isPresent != null){
                 ModelState.AddModelError("", $"Articolo {articolo.CodArt} presente nell'anagrafica");
                 return StatusCode(422, ModelState);

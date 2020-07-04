@@ -76,7 +76,7 @@ namespace ArticoliWebService.Services
             return this.alphaShopDbContext.Articoli
                 .AsNoTracking()
                 .Where(a => a.CodArt.Equals(Code))
-                //.Include(a => a.barcode)
+                //.Include(a => a.Barcode)
                 //.Include(a => a.famAssort)
                 .FirstOrDefault();
         }
