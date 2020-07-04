@@ -145,7 +145,7 @@ namespace ArticoliWebService.Controllers
                 return StatusCode(500, ModelState);
                 //return StatusCode(500, new InfoMsg(DateTime.Today, $"Ci sono stati problemi nell'inserimento dell'Articolo {articolo.CodArt}."));
             }
-            return CreatedAtRoute("GetArticoli", new {codart = articolo.CodArt}, articolo);
+            return CreatedAtRoute("GetArticoli", new {codart = articolo.CodArt}, CreateArticoloDTO(articolo));
         }
 
         [HttpPut("modifica")]
@@ -155,11 +155,11 @@ namespace ArticoliWebService.Controllers
         [ProducesResponseType(500)]
         public IActionResult UpdateArticoli([FromBody] Articoli articolo)
         {
-            if(articolirepository == null){
-                return BadRequest(ModelState)
+            if(articolo == null){
+                return BadRequest(ModelState);
             }
 
-            var isPresent = articolirepository.SelArticoloByCodice(articolo.CodArt);
+            var isPresent = articolirepository.SelArticoloByCodice2(articolo.CodArt);
 
             if (isPresent == null)
             {
@@ -191,5 +191,39 @@ namespace ArticoliWebService.Controllers
 
             return Ok(new InfoMsg(DateTime.Today, $"Modifica articolo {articolo.CodArt} eseguita con successo!"));
         }
+
+         private ArticoliDto CreateArticoloDTO(Articoli articolo)
+        {
+            var barcodeDto = new List<BarcodeDto>();
+            
+            foreach(var ean in articolo.Barcode)
+            {
+                barcodeDto.Add(new BarcodeDto
+                {
+                    Barcode = ean.Barcode,
+                    Tipo = ean.IdTipoArt
+                });
+            }
+
+            var articoliDto = new ArticoliDto
+            {
+                CodArt = articolo.CodArt,
+                Descrizione = articolo.Descrizione,
+                Um = (articolo.Um != null) ? articolo.Um.Trim() : "",
+                CodStat = (articolo.CodStat != null) ? articolo.CodStat.Trim() : "", 
+                PzCart = articolo.PzCart,
+                PesoNetto = articolo.PesoNetto,
+                DataCreazione = articolo.DataCreazione,
+                Ean = barcodeDto,
+                //IdFamAss = articolo.IdFamAss,
+                IdStatoArt = (articolo.IdStatoArt != null) ? articolo.IdStatoArt.Trim() : "",
+                //IdIva = articolo.IdIva,
+                Categoria = (articolo.famAssort != null) ? articolo.famAssort.Descrizione : "Non Definito"
+            };
+
+            return articoliDto;
+        }
+
+        
     }
 }

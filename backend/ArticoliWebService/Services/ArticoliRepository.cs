@@ -71,13 +71,15 @@ namespace ArticoliWebService.Services
             return saved > 0;
         }
 
-
+        public Articoli SelArticoloByCodice2(string Code)
+        {
+            return this.alphaShopDbContext.Articoli
+                .AsNoTracking()
+                .Where(a => a.CodArt.Equals(Code))
+                //.Include(a => a.barcode)
+                //.Include(a => a.famAssort)
+                .FirstOrDefault();
+        }
         
-
-        
-
-
-
-      
     }
 }
