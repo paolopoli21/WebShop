@@ -22,6 +22,7 @@ namespace ArticoliWebService.Controllers
 
         [HttpGet("cerca/descrizione/{filter}")]
         [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         [ProducesResponseType(200, Type =  typeof(IEnumerable<Articoli>))]
         public async Task<IActionResult> GetArticoliByDesc(string filter){
             var articoliDto = new List<ArticoliDto>() ;
