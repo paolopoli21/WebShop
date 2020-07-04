@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ArticoliWebService.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArticoliWebService.Services
@@ -34,10 +35,24 @@ namespace ArticoliWebService.Services
 
         public async Task<Articoli> SelArticoloByEan(string Ean)
         {
-            return await this.alphaShopDbContext.Barcode
-                .Where(b => b.Barcode.Equals(Ean))
-                .Select(a => a.articolo)
+            var param = new SqlParameter("@Barcode", Ean);
+
+            string Sql = "SELECT A.* FROM [dbo].[ARTICOLI] A JOIN [dbo].[BARCODE] B "; 
+            Sql += "ON A.CODART = B.CODART WHERE B.BARCODE = @Barcode";
+
+            return await this.alphaShopDbContext.Articoli
+                .FromSqlRaw(Sql, param)
+                .Include(a => a.Barcode)
+                .Include(a => a.famAssort)
+                .Include(a => a.iva)
                 .FirstOrDefaultAsync();
+            
+
+            // return await this.alphaShopDbContext.Barcode
+            //     .Where(b => b.Barcode.Equals(Ean))
+            //     .Select(a => a.articolo)
+            //     .FirstOrDefaultAsync();
+
         }
 
         
