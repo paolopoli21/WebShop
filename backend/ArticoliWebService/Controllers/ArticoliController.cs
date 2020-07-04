@@ -192,6 +192,34 @@ namespace ArticoliWebService.Controllers
             return Ok(new InfoMsg(DateTime.Today, $"Modifica articolo {articolo.CodArt} eseguita con successo!"));
         }
 
+        [HttpDelete("elemina/{codart}")]
+        [ProducesResponseType(201, Type = typeof(InfoMsg))]
+        [ProducesResponseType(400 , Type = typeof(InfoMsg))]
+        [ProducesResponseType(422 , Type = typeof(InfoMsg))]
+        [ProducesResponseType(500)]
+        public IActionResult DeleteArticoli(string codart)
+        {
+            if(codart == ""){
+                return BadRequest(new InfoMsg(DateTime.Today, $"E' necessario inserire il codice dell'articolo da eliminare!"));
+            }
+
+            //Contolliamo se l'articolo è presente (Usare il metodo senza Traking)
+            var articolo = articolirepository.SelArticoloByCodice2(codart);
+
+            if (articolo == null)
+            {
+                return StatusCode(422, new InfoMsg(DateTime.Today, $"Articolo {codart} NON presente in anagrafica! Impossibile Eliminare!"));
+            }
+
+             //verifichiamo che i dati siano stati regolarmente eliminati dal database
+            if (!articolirepository.DelArticoli(articolo))
+            {
+                return StatusCode(500, new InfoMsg(DateTime.Today, $"Ci sono stati problemi nella eliminazione dell'Articolo {articolo.CodArt}.  "));
+            }
+
+            return Ok(new InfoMsg(DateTime.Today, $"Eliminazione articolo {codart} eseguita con successo!"));
+        }
+
          private ArticoliDto CreateArticoloDTO(Articoli articolo)
         {
             var barcodeDto = new List<BarcodeDto>();
