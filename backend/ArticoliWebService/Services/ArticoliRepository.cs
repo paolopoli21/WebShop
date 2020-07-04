@@ -23,6 +23,20 @@ namespace ArticoliWebService.Services
                     .OrderBy(a => a.Descrizione)
                     .ToListAsync();  
         }
+
+        public async Task<ICollection<Articoli>> SelArticoliByDescrizione(string Descrizione, string IdCat)
+        {
+            bool isNumeric = int.TryParse(IdCat, out int n);
+            if(string.IsNullOrWhiteSpace(IdCat) || !isNumeric){
+                return await this.SelArticoliByDescrizione(Descrizione);
+            }
+            return await this.alphaShopDbContext.Articoli
+                .Where(a => a.Descrizione.Contains(Descrizione))
+                .Where(a => a.IdFamAss == int.Parse(IdCat))
+                .Include(a => a.famAssort)
+                .OrderBy(a => a.Descrizione)
+                .ToListAsync();
+        }
         
         public async Task<Articoli> SelArticoloByCodice(string Code)
         {
@@ -95,6 +109,7 @@ namespace ArticoliWebService.Services
                 //.Include(a => a.famAssort)
                 .FirstOrDefault();
         }
+
         
     }
 }

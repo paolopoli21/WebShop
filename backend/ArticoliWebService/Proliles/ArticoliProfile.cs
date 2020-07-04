@@ -12,6 +12,21 @@ namespace Articoli_Web_Service.Proliles
             (
                 dest => dest.Categoria,
                 opt => opt.MapFrom(src => $"{src.IdFamAss}{src.famAssort.Descrizione}")
+            )
+            .ForMember
+            (
+                dest => dest.CodStat,
+                opt => opt.MapFrom(src => src.CodStat.Trim())
+            )
+            .ForMember
+            (
+                dest => dest.Um,
+                opt => opt.MapFrom(src => src.Um.Trim())
+            )
+            .ForMember
+            (
+                dest => dest.IdStatoArt,
+                opt => opt.MapFrom(src => src.IdStatoArt.Trim())
             );
         }
     }

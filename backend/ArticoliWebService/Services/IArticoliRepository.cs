@@ -7,6 +7,7 @@ namespace ArticoliWebService.Services
     public interface IArticoliRepository
     {
         Task<ICollection<Articoli>> SelArticoliByDescrizione(string Descrizione);
+        Task<ICollection<Articoli>> SelArticoliByDescrizione(string Descrizione, string IdCat);
 
         Task<Articoli> SelArticoloByCodice(string Code);
 
