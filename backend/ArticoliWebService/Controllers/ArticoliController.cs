@@ -24,7 +24,7 @@ namespace ArticoliWebService.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type =  typeof(IEnumerable<Articoli>))]
-        public async Task<IActionResult> GetArticoliByDesc(string filter){
+        public async Task<ActionResult<IEnumerable<ArticoliDto>>> GetArticoliByDesc(string filter){
             var articoliDto = new List<ArticoliDto>() ;
             var articoli = await this.articolirepository.SelArticoliByDescrizione(filter);
                if(!ModelState.IsValid){
