@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Articoli_Web_Service.Models;
 using ArticoliWebService.Dtos;
 using ArticoliWebService.Models;
 using ArticoliWebService.Services;
@@ -144,7 +146,50 @@ namespace ArticoliWebService.Controllers
                 //return StatusCode(500, new InfoMsg(DateTime.Today, $"Ci sono stati problemi nell'inserimento dell'Articolo {articolo.CodArt}."));
             }
             return CreatedAtRoute("GetArticoli", new {codart = articolo.CodArt}, articolo);
+        }
 
+        [HttpPut("modifica")]
+        [ProducesResponseType(201, Type = typeof(InfoMsg))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(422)]
+        [ProducesResponseType(500)]
+        public IActionResult UpdateArticoli([FromBody] Articoli articolo)
+        {
+            if(articolirepository == null){
+                return BadRequest(ModelState)
+            }
+
+            var isPresent = articolirepository.SelArticoloByCodice(articolo.CodArt);
+
+            if (isPresent == null)
+            {
+                //ModelState.AddModelError("", $"Articolo {articolo.CodArt} NON presente in anagrafica! Impossibile utilizzare il metodo PUT!");
+                return StatusCode(422, new InfoMsg(DateTime.Today, $"Articolo {articolo.CodArt} NON presente in anagrafica! Impossibile utilizzare il metodo PUT!"));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                string ErrVal = "";
+
+                foreach (var modelState in ModelState.Values) 
+                {
+                    foreach (var modelError in modelState.Errors) 
+                    {
+                        ErrVal += modelError.ErrorMessage + " - "; 
+                    }
+                }
+
+                return BadRequest(new InfoMsg(DateTime.Today, ErrVal));
+            }
+
+            //verifichiamo che i dati siano stati regolarmente inseriti nel database
+            if (!articolirepository.UpdArticoli(articolo))
+            {
+                //ModelState.AddModelError("", $"Ci sono stati problemi nella modifica dell'Articolo {articolo.CodArt}.  ");
+                return StatusCode(500, new InfoMsg(DateTime.Today, $"Ci sono stati problemi nella modifica dell'Articolo {articolo.CodArt}.  "));
+            }
+
+            return Ok(new InfoMsg(DateTime.Today, $"Modifica articolo {articolo.CodArt} eseguita con successo!"));
         }
     }
 }
