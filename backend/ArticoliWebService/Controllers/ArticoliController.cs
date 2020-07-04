@@ -5,6 +5,7 @@ using Articoli_Web_Service.Models;
 using ArticoliWebService.Dtos;
 using ArticoliWebService.Models;
 using ArticoliWebService.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArticoliWebService.Controllers
@@ -15,9 +16,11 @@ namespace ArticoliWebService.Controllers
     public class ArticoliController: Controller
     {
         private readonly IArticoliRepository articolirepository;
+        private readonly IMapper mapper;
 
-        public ArticoliController(IArticoliRepository articolirepository){
+        public ArticoliController(IArticoliRepository articolirepository, IMapper mapper){
             this.articolirepository = articolirepository;
+            this.mapper = mapper;
         }
 
         [HttpGet("cerca/descrizione/{filter}")]
@@ -35,19 +38,20 @@ namespace ArticoliWebService.Controllers
                 return NotFound(string.Format("Non è stato trovato alcun articolo con il filtro '{0}'", filter));
             }
 
-            foreach(var articolo in articoli){
-                articoliDto.Add(new ArticoliDto{
-                    CodArt = articolo.CodArt,
-                    Descrizione = articolo.Descrizione,
-                    Um = articolo.Um,
-                    CodStat = articolo.CodStat,
-                    PzCart = articolo.PzCart,
-                    PesoNetto = articolo.PesoNetto,
-                    DataCreazione = articolo.DataCreazione,
-                    IdStatoArt = articolo.IdStatoArt
-                });
-            }
-            return Ok(articoliDto);
+            // foreach(var articolo in articoli){
+            //     articoliDto.Add(new ArticoliDto{
+            //         CodArt = articolo.CodArt,
+            //         Descrizione = articolo.Descrizione,
+            //         Um = articolo.Um,
+            //         CodStat = articolo.CodStat,
+            //         PzCart = articolo.PzCart,
+            //         PesoNetto = articolo.PesoNetto,
+            //         DataCreazione = articolo.DataCreazione,
+            //         IdStatoArt = articolo.IdStatoArt
+            //     });
+            // }
+
+            return Ok(mapper.Map<IEnumerable<ArticoliDto>>(articoli));
         }
         [HttpGet("cerca/codice/{CodArt}", Name = "GetArticoli")]
         [ProducesResponseType(400)]
