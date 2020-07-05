@@ -54,3 +54,5 @@ C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\
 C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll

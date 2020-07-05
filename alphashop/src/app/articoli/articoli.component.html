@@ -7,7 +7,7 @@
                   <h2>Risultati Ricerca: <small>Trovati {{NumArt}} Articoli</small></h2>
                 </div>
                 <div class="col-sm-7">	
-                  
+                    <button style="margin-left: 20px;" class="btn btn-success float-right">Nuovo Articolo</button>
                 </div>
             </div>
         </div> 
@@ -34,6 +34,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="alert alert-success" *ngIf='messaggio'>
+        {{messaggio}}
     </div>    
 <table id= "articoli" border = "1" class="table table-striped table-bordered table-hover">
     <caption>Alimentari</caption>
@@ -46,6 +49,8 @@
         <th>Prezzo</th>
         <th>Activo</th>
         <th>Data</th>
+        <th></th>
+        <th></th>
     </thead>
     <tbody>
         <tr *ngFor="let articolo of articoli | paginate: { itemsPerPage: righe, currentPage: pagina } ">
@@ -56,7 +61,15 @@
             <td>{{articolo.pesoNetto}}</td>
             <td class="text-right">{{articolo.prezzo | currency:'EUR'}}</td>
             <td>{{articolo.idStatoArt}}</td>
-            <td>{{articolo.dataCreazione | date}}</td>
+            <td>{{articolo.dataCreazione | date:'shortDate'}}</td>
+            <td>
+                <button class="btn btn-warning table-buttons">
+                <span class="oi oi-pencil"></span> Modifica</button>
+            </td>
+            <td>
+                <button (click)="Elimina(articolo.codArt)" class="btn btn-danger table-buttons">
+                <span class="oi oi-trash"></span> Elimina</button> 
+            </td>
         </tr>   
     </tbody>
 </table>

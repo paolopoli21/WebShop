@@ -197,7 +197,7 @@ namespace ArticoliWebService.Controllers
             return Ok(new InfoMsg(DateTime.Today, $"Modifica articolo {articolo.CodArt} eseguita con successo!"));
         }
 
-        [HttpDelete("elemina/{codart}")]
+        [HttpDelete("elimina/{codart}")]
         [ProducesResponseType(201, Type = typeof(InfoMsg))]
         [ProducesResponseType(400 , Type = typeof(InfoMsg))]
         [ProducesResponseType(422 , Type = typeof(InfoMsg))]
