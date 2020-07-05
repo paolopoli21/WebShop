@@ -12,7 +12,7 @@ export class NewartComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private articoliService: ArticoliDataService) { }
 
-  CodArt : String = "";
+  CodArt : string = "";
   articolo: Articoli;
 
   ngOnInit(): void {

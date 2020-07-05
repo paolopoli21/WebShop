@@ -8,7 +8,7 @@ namespace ArticoliWebService.Models
     {
         [Key]
         public int IdIva { get; set; }
-        public string Descrizone {get; set;}
+        public string Descrizione {get; set;}
         [Required]
         public Int16 Aliquota { get; set; }
         public ICollection<Articoli> articoli { get; set; }
