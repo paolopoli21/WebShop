@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticoliDataService } from '../services/articoli-data.service';
 
 export class Articoli{
@@ -43,7 +43,7 @@ export class ArticoliComponent implements OnInit {
   articolo: Articoli;
 
 
-  constructor(private route:ActivatedRoute,private articoliService : ArticoliDataService) { }
+  constructor(private route:ActivatedRoute,private router:Router,private articoliService : ArticoliDataService) { }
 
   ngOnInit(): void {
     this.filter = this.route.snapshot.params['filter'];
@@ -115,5 +115,10 @@ export class ArticoliComponent implements OnInit {
       }
     )
     
+  }
+
+  Modifica(CodArt: string){
+    console.log(`Modifica articolo ${CodArt}`);
+    this.router.navigate(['newart', CodArt])
   }
 }
