@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Articoli } from '../articoli/articoli.component';
+import { Articoli, Iva, FamAss } from '../articoli/articoli.component';
 import { ArticoliDataService } from '../services/articoli-data.service';
 
 @Component({
@@ -15,6 +15,9 @@ export class NewartComponent implements OnInit {
   CodArt : string = "";
   articolo: Articoli;
 
+  Iva: Iva;
+  Cat: FamAss;
+
   ngOnInit(): void {
     this.CodArt = this.route.snapshot.params['codart'];
 
@@ -25,7 +28,26 @@ export class NewartComponent implements OnInit {
       },
       error => {
         console.log(error.error.messaggio);
-        
+      }
+    );
+
+    this.articoliService.getIva().subscribe(
+      response =>{
+        this.Iva = response;
+        console.log(response);
+      },
+      error =>{
+        console.log(error.error);
+      }
+    );
+
+    this.articoliService.getCat().subscribe(
+      response =>{
+        this.Cat = response;
+        console.log(response);
+      },
+      error =>{
+        console.log(error.error);
       }
     );
 

@@ -22,6 +22,14 @@ export class ArticoliDataService {
   getArticoliByEan(barcode: string){
     return this.httpClient.get<Articoli>(`http://${this.server}:${this.port}/api/articoli/cerca/ean/${barcode}`); //ALT + 0096 | ALT GR + '
   }
+  
+  getIva(){
+    return this.httpClient.get<Iva>(`http://${this.server}:${this.port}/api/iva`); //ALT + 0096 | ALT GR + '
+  }
+
+  getCat(){
+    return this.httpClient.get<FamAss>(`http://${this.server}:${this.port}/api/cat`); //ALT + 0096 | ALT GR + '
+  }
 
   delArticoloByCodArt(codart: string){
     return this.httpClient.delete<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/elimina/${codart}`); //ALT + 0096 | ALT GR + '

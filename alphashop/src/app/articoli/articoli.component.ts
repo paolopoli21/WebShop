@@ -11,8 +11,25 @@ export class Articoli{
     public peso: number,
     public prezzo: number,
     public isactive: boolean,
-    public data: Date
+    public data: Date,
+    public idFamAss: number,
+    public idIva: number
   ){}
+}
+
+export class Iva {
+  constructor(
+    public idIva: number,
+    public descrizione: string,
+    public alquota: number
+  ) {}
+}
+
+export class FamAss {
+  constructor(
+    public id: number,
+    public descrizione: string,
+  ) {}
 }
 
 export class ApiMsg {
