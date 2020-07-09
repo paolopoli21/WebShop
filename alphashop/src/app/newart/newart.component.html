@@ -1,4 +1,4 @@
-<app-jumbotron [Titolo]="'Dati Articoli'" [SottoTitolo]="'Inserisici o modifica dati del nuovo articolo'" ></app-jumbotron>
+<app-jumbotron [Titolo]="'Dati Articoli'" [SottoTitolo]="'Inserisici o modifica dati del nuovo articolo'" [Show]="false"></app-jumbotron>
 
 <section class = "container">
     <div class ="porlet light bordered">
@@ -8,11 +8,17 @@
                 <span class="caption-subject bold uppercase" ></span>
             </div>
         </div>
-        <div class="portlet body form">
+        <div class="alert alert-success" *ngIf='Conferma'>
+            {{Conferma}}
+          </div>
+          <div class="alert alert-danger" *ngIf='Errore'>
+            {{Errore}}
+          </div>
+        <div class="portlet-body form">
             <div class = "portlet-body">
                 <div class ="form-group">
                     <label for="codArt">Codice Articolo:</label>
-                    <input id="codArt" type="text" [(ngModel)] ="articolo.codart" class="form-control" placeholder="codice articolo"/>
+                    <input id="codArt" type="text" [(ngModel)] ="articolo.codArt" class="form-control" placeholder="codice articolo"/>
                 </div>
 
                 <div class ="form-group">
@@ -20,28 +26,66 @@
                     <input id="descrizione" type="text" [(ngModel)] ="articolo.descrizione" class="form-control" placeholder="descrizione articolo"/>
                 </div>
 
-                <div class ="form-group">
-                    <label for="um">Unità di misura:</label>
-                    <select id="descrizione" type="text" [(ngModel)] ="articolo.um" >
-                        <option value="PZ">Pezzi</option>
-                        <option value="LT">Litri</option>
-                        <option value="KG">Kilogrami</option>
-                    </select>   
-                </div>
+                <div class="form-group">
+                    <label for="um">Unità di Misura</label>
+                    <select class="form-control" [(ngModel)]="articolo.um">
+                      <option value="PZ">Pezzi</option> 
+                      <option value="LT">Litri</option>
+                      <option value="KG">Kilogrammi</option>
+                    </select>
+                  </div>
 
                 <div class="from-row">
                     <div class ="form-group col-md-4">
                         <label for="pzCart">Pezzi per cartone:</label>
-                        <input id="pzCart" type="text" [(ngModel)] ="articolo.pzcart" class="form-control" placeholder="codice articolo"/>
+                        <input id="pzCart" type="text" [(ngModel)] ="articolo.pzCart" class="form-control" placeholder="codice articolo"/>
                     </div>
 
-                    <div class ="form-group">
+                    <div class ="form-group col-md-4">
                         <label for="pesoNetto">Peso Netto:</label>
-                        <input id="pesoNetto" type="text" [(ngModel)] ="articolo.peso" class="form-control" placeholder="codice articolo"/>
+                        <input id="pesoNetto" type="text" [(ngModel)] ="articolo.pesoNetto" class="form-control" placeholder="codice articolo"/>
                     </div>
-
-
+                    
+                    <div class ="form-group col-md-4">
+                        <label for="idIva">Iva:</label>
+                        <select class="form-control"  [(ngModel)] ="articolo.idIva" >
+                            <option [ngValue]="iva.idIva" *ngFor="let iva of Iva">{{iva.descrizione}}</option>
+                        </select>  
+                    </div>
                 </div>
+
+                <div class ="form-group col-md-4">
+                    <div class="from-check-inline">
+                        <label class="from-check-label" >
+                            <input type="radio" class="form-check-input" [(ngModel)]="articolo.idStatoArt" name="idStatoArt" value="1" checked="true" />Attivo
+                        </label>
+                    </div> 
+
+                    <div class="from-check-inline">
+                        <label class="from-check-label" >
+                            <input type="radio" class="form-check-input" [(ngModel)]="articolo.idStatoArt" name="idStatoArt" value="2" checked="true" />Sospeso
+                        </label>
+                    </div> 
+
+                    <div class="from-check-inline">
+                        <label class="from-check-label" >
+                            <input type="radio" class="form-check-input" [(ngModel)]="articolo.idStatoArt" name="idStatoArt" value="3" checked="true" />Eliminato
+                        </label>
+                    </div> 
+                 </div>
+
+                 <div class ="form-group col-md-4">
+                    <label for="idFamAss">:Famiglia Assortimento</label>
+                    <select class="form-control"  [(ngModel)] ="articolo.idFamAss" >
+                        <option [ngValue]="categoria.id" *ngFor="let categoria of Cat">{{categoria.descrizione}}</option>
+                    </select>  
+                </div>
+
+                <hr class="line-form">
+
+                <button type="submit" id="btnAdd" (click) ="salva()" class="btn btn primary form-buttons">
+                  <i class="fa fa-floppy-o" area-hidden="true">Salva</i>      
+                </button>
             </div>
         </div>
     </div>

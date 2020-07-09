@@ -63,30 +63,32 @@ namespace ArticoliWebService.Controllers
             }
 
             var articolo = await this.articolirepository.SelArticoloByCodice(CodArt);
-            var barcodeDto = new List<BarcodeDto>();
-             foreach(var ean in articolo.Barcode)
-            {
-                barcodeDto.Add(new BarcodeDto
-                {
-                    Barcode = ean.Barcode,
-                    Tipo = ean.IdTipoArt
-                });
-            }
+            //var barcodeDto = new List<BarcodeDto>();
+            //  foreach(var ean in articolo.Barcode)
+            // {
+            //     barcodeDto.Add(new BarcodeDto
+            //     {
+            //         Barcode = ean.Barcode,
+            //         Tipo = ean.IdTipoArt
+            //     });
+            // }
 
-            var articoliDto = new ArticoliDto
-            {
-                CodArt = articolo.CodArt,
-                Descrizione = articolo.Descrizione,
-                Um = articolo.Um,
-                CodStat = articolo.CodStat,
-                PzCart = articolo.PzCart,
-                PesoNetto = articolo.PesoNetto,
-                DataCreazione = articolo.DataCreazione,
-                Ean = barcodeDto,
-                Categoria = articolo.famAssort.Descrizione,
-                IdStatoArt = articolo.IdStatoArt
-            };
-            return Ok(articoliDto);
+            // var articoliDto = new ArticoliDto
+            // {
+            //     CodArt = articolo.CodArt,
+            //     Descrizione = articolo.Descrizione,
+            //     Um = articolo.Um,
+            //     CodStat = articolo.CodStat,
+            //     PzCart = articolo.PzCart,
+            //     PesoNetto = articolo.PesoNetto,
+            //     DataCreazione = articolo.DataCreazione,
+            //     Ean = barcodeDto,
+            //     Categoria = articolo.famAssort.Descrizione,
+            //     IdStatoArt = articolo.IdStatoArt
+            // };
+            //return Ok(mapper.Map<ArticoliDto>(articoli));
+             return Ok(CreateArticoloDTO(articolo));
+            //return Ok(articoliDto);
         }
 
         [HttpGet("cerca/barcode/{Ean}")]
@@ -140,8 +142,8 @@ namespace ArticoliWebService.Controllers
                     }
                 }
 
-                return BadRequest(ErrVal);
-                //return BadRequest(new InfoMsg(DateTime.Today, ErrVal));
+                //return BadRequest(ErrVal);
+                return BadRequest(new InfoMsg(DateTime.Today, ErrVal));
             }
              //verifichiamo che i dati siano stati regolarmente inseriti nel database
             if (!articolirepository.InsArticoli(articolo))

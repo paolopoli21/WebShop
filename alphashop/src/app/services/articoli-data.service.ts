@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Articoli, ApiMsg } from '../articoli/articoli.component';
+import { Articoli, ApiMsg, Iva, FamAss } from '../articoli/articoli.component';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -15,8 +15,8 @@ export class ArticoliDataService {
     return this.httpClient.get<Articoli[]>(`http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`); //ALT + 0096 | ALT GR + '
   }
 
-  getArticoliByCordArt(codart: string){
-    return this.httpClient.get<Articoli>(`http://${this.server}:${this.port}/api/articoli/cerca/codice/${codart}`); //ALT + 0096 | ALT GR + '
+  getArticoliByCordArt(CodArt: string){
+    return this.httpClient.get<Articoli>(`http://${this.server}:${this.port}/api/articoli/cerca/codice/${CodArt}`); //ALT + 0096 | ALT GR + '
   }
 
   getArticoliByEan(barcode: string){
@@ -33,6 +33,10 @@ export class ArticoliDataService {
 
   delArticoloByCodArt(codart: string){
     return this.httpClient.delete<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/elimina/${codart}`); //ALT + 0096 | ALT GR + '
+  }
+
+  updArticolo(articolo: Articoli) {
+    return this.httpClient.put<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/modifica`, articolo);
   }
 
 }

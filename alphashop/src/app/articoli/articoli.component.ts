@@ -4,16 +4,17 @@ import { ArticoliDataService } from '../services/articoli-data.service';
 
 export class Articoli{
   constructor(
-    public codart: string,
+    public codArt: string,
     public descrizione: string,
     public um: string,
-    public pzcart: number,
-    public peso: number,
+    public pzCart: number,
+    public pesoNetto: number,
     public prezzo: number,
     public isactive: boolean,
     public data: Date,
     public idFamAss: number,
-    public idIva: number
+    public idIva: number,
+    public idStatoArt: number
   ){}
 }
 

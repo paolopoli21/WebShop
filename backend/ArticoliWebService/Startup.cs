@@ -33,6 +33,10 @@ namespace Articoli_Web_Service
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
                 });
             });
+
+            services.Configure<ApiBehaviorOptions>(options =>{
+                options.SuppressModelStateInvalidFilter = true;
+            });
             var connectionString = Configuration["ConnectionString:alphashopDbConString"];
             services.AddDbContext<AlphaShopDbContext>(c => c.UseSqlServer(connectionString));
             services.AddScoped<IArticoliRepository, ArticoliRepository>();
