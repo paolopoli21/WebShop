@@ -120,31 +120,34 @@ namespace ArticoliWebService.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(422)]
         [ProducesResponseType(500)]
-        public IActionResult SaveArticoli([FromBody] Articoli articolo){
+        public IActionResult SaveArticoli([FromBody] Articoli articolo)
+        {
             if(articolo == null){
                 return BadRequest(ModelState);
             }
             var isPresent = articolirepository.SelArticoloByCodice2(articolo.CodArt);
             if(isPresent != null){
-                ModelState.AddModelError("", $"Articolo {articolo.CodArt} presente nell'anagrafica");
-                return StatusCode(422, ModelState);
+                //ModelState.AddModelError("", $"Articolo {articolo.CodArt} presente nell'anagrafica");
+                return StatusCode(422, new InfoMsg(DateTime.Today,$" articolo {articolo.CodArt} E' pressente in anagrafica impossibile utilizzare il metodo post!"));
             }
 
-             if (!ModelState.IsValid)
-            {
-                string ErrVal = "";
+            //  if (!ModelState.IsValid)
+            // {
+            //     string ErrVal = "";
 
-                foreach (var modelState in ModelState.Values) 
-                {
-                    foreach (var modelError in modelState.Errors) 
-                    {
-                        ErrVal += modelError.ErrorMessage + " - "; 
-                    }
-                }
+            //     foreach (var modelState in ModelState.Values) 
+            //     {
+            //         foreach (var modelError in modelState.Errors) 
+            //         {
+            //             ErrVal += modelError.ErrorMessage + " - "; 
+            //         }
+            //     }
 
-                //return BadRequest(ErrVal);
-                return BadRequest(new InfoMsg(DateTime.Today, ErrVal));
-            }
+            //     //return BadRequest(ErrVal);
+            //     return BadRequest(new InfoMsg(DateTime.Today, ErrVal));
+            // }
+            articolo.DataCreazione = DateTime.Today;
+
              //verifichiamo che i dati siano stati regolarmente inseriti nel database
             if (!articolirepository.InsArticoli(articolo))
             {
@@ -152,7 +155,8 @@ namespace ArticoliWebService.Controllers
                 return StatusCode(500, ModelState);
                 //return StatusCode(500, new InfoMsg(DateTime.Today, $"Ci sono stati problemi nell'inserimento dell'Articolo {articolo.CodArt}."));
             }
-            return CreatedAtRoute("GetArticoli", new {codart = articolo.CodArt}, CreateArticoloDTO(articolo));
+            //return CreatedAtRoute("GetArticoli", new {codart = articolo.CodArt}, CreateArticoloDTO(articolo));
+            return Ok(new InfoMsg(DateTime.Today,$"Inserimento articolo {articolo.CodArt} eseguita con successo!"));
         }
 
         [HttpPut("modifica")]
