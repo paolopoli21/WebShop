@@ -1,0 +1,4 @@
+C:\Software\WebShop2\WebShop\GestUser\obj\Debug\netcoreapp3.0\GestUser.csprojAssemblyReference.cache
+C:\Software\WebShop2\WebShop\GestUser\obj\Debug\netcoreapp3.0\GestUser.MvcApplicationPartsAssemblyInfo.cache
+C:\Software\WebShop2\WebShop\GestUser\obj\Debug\netcoreapp3.0\GestUser.AssemblyInfoInputs.cache
+C:\Software\WebShop2\WebShop\GestUser\obj\Debug\netcoreapp3.0\GestUser.AssemblyInfo.cs
