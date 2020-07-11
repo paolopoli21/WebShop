@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Articoli, Iva, FamAss, ApiMsg } from '../articoli/articoli.component';
 import { ArticoliDataService } from '../services/articoli-data.service';
 
@@ -18,7 +18,7 @@ export class NewartComponent implements OnInit {
   Cat: FamAss;
   IsModifica: boolean = false;
 
-  constructor(private route: ActivatedRoute, private articoliService: ArticoliDataService) { }
+  constructor(private route: ActivatedRoute,private router: Router ,private articoliService: ArticoliDataService) { }
 
   ngOnInit(): void {
     this.articolo = new Articoli("","", "",0,0,0, false, new Date(), 0,0,0)
@@ -59,7 +59,13 @@ export class NewartComponent implements OnInit {
 
   }
 
+  abort(){
+    this.router.navigate(['articoli', this.CodArt]);
+  }
+
   salva(){
+    this.Conferma = "";
+    this.Errore = "";
     if(this.IsModifica){
       this.articoliService.updArticolo(this.articolo).subscribe(
         response =>{
@@ -78,12 +84,15 @@ export class NewartComponent implements OnInit {
     else{
       this.articoliService.insArticolo(this.articolo).subscribe(
         response =>{
+          debugger;
           console.log(response);
           this.apiMsg = response;
           this.Conferma = this.apiMsg.message;
           console.log(this.Conferma);
+          this.router.navigate(['newart', this.articolo.codArt]);
         },
         error=>{
+          debugger;
           this.apiMsg = error;
           this.Errore = this.apiMsg.message;
           console.log(this.Errore);

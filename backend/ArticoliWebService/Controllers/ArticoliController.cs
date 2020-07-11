@@ -151,9 +151,9 @@ namespace ArticoliWebService.Controllers
              //verifichiamo che i dati siano stati regolarmente inseriti nel database
             if (!articolirepository.InsArticoli(articolo))
             {
-                ModelState.AddModelError("", $"Ci sono stati problemi nell'inserimento dell'Articolo {articolo.CodArt}.  ");
-                return StatusCode(500, ModelState);
-                //return StatusCode(500, new InfoMsg(DateTime.Today, $"Ci sono stati problemi nell'inserimento dell'Articolo {articolo.CodArt}."));
+                // ModelState.AddModelError("", $"Ci sono stati problemi nell'inserimento dell'Articolo {articolo.CodArt}.  ");
+                // return StatusCode(500, ModelState);
+                return StatusCode(500, new InfoMsg(DateTime.Today, $"Ci sono stati problemi nell'inserimento dell'Articolo {articolo.CodArt}."));
             }
             //return CreatedAtRoute("GetArticoli", new {codart = articolo.CodArt}, CreateArticoloDTO(articolo));
             return Ok(new InfoMsg(DateTime.Today,$"Inserimento articolo {articolo.CodArt} eseguita con successo!"));

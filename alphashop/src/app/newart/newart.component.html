@@ -19,7 +19,7 @@
             <div class = "portlet-body">
                 <div class ="form-group">
                     <label for="codArt">Codice Articolo:</label>
-                    <input name="codArt" type="text" [(ngModel)] ="articolo.codArt" class="form-control" placeholder="codice articolo" required minlength="5" maxlength="30" #codice="ngModel"/>
+                    <input name="codArt" type="text" [(ngModel)] ="articolo.codArt" class="form-control" placeholder="codice articolo" required minlength="5" maxlength="30" #codice="ngModel" [disabled] = "IsModifica"/>
                     <span style="color:red" *ngIf="codice.dirty && codice.invalid">
                         Il codice articolo deve essere compreso fra 5 e 30 caratteri
                     </span>
@@ -43,21 +43,21 @@
                   </div>
 
                 <div class="from-row">
-                    <div class ="form-group col-md-4">
+                    <!-- <div class ="form-group col-md-4">
                         <label for="pzCart">Pezzi per cartone:</label>
                         <input name="pzCart" type="text" [(ngModel)] ="articolo.pzCart" class="form-control" placeholder="pezzi per cartone" required  maxlength="2" #pezcart="ngModel"/>
                         <span style="color:red" *ngIf="pezcart.dirty && pezcart.invalid">
                             Il pezzi per cartone articolo deve avere un massimo di 99
                         </span>
-                    </div>
+                    </div> -->
 
-                    <div class ="form-group col-md-4">
+                    <!-- <div class ="form-group col-md-4">
                         <label for="pesoNetto">Peso Netto:</label>
                         <input name="pesoNetto" type="text" [(ngModel)] ="articolo.pesoNetto" class="form-control" placeholder="codice articolo" required #peson="ngModel"/>
                         <span style="color:red" *ngIf="peson.dirty && peson.invalid">
                             Il pezzi per cartone articolo deve avere un valor compreso tra 0.01 e 100
                         </span>
-                    </div>
+                    </div> -->
                     
                     <div class ="form-group col-md-4">
                         <label for="idIva">Iva:</label>
@@ -96,9 +96,13 @@
 
                 <hr class="line-form">
 
-                <button type="submit" id="btnAdd"  class="btn btn primary form-buttons" [disabled] = "artForm.invalid">
+                <button type="submit" id="btnAdd"  class="btn btn-primary form-buttons" [disabled] = "artForm.invalid">
                   <i class="fa fa-floppy-o" area-hidden="true">Salva</i>      
                 </button>
+
+                <button id="btnAbort"  class="btn btn-warning form-buttons" (click) = abort()>
+                    <i class="fa fa-floppy-out" area-hidden="true">Annulla</i>      
+                  </button>
             </div>
         </form>
         </div>
