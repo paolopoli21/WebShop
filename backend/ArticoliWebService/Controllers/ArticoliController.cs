@@ -25,6 +25,13 @@ namespace ArticoliWebService.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet("test")]
+        [ProducesResponseType(200, Type = typeof(InfoMsg))]
+        public IActionResult TestConnex()
+        {
+            return Ok(new InfoMsg(DateTime.Today, "Test Connessione Ok"));
+        }
+
         [HttpGet("cerca/descrizione/{filter}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
