@@ -16,6 +16,7 @@ namespace Articoli_Web_Service.Security
     public class BasicAuthenticationHandler: AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private readonly IUserService userService;
+        //private readonly BasicAuthenticationService _authenticationService;
         public BasicAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
@@ -27,10 +28,16 @@ namespace Articoli_Web_Service.Security
             this.userService = userService;
         }
 
-        protected override async Task<AuthenticateResult> HandleAuthenticatonAsync()
+        // protected override Task<AuthenticateResult> HandleAuthenticateAsync()
+        // {
+        //     throw new NotImplementedException();
+        // }
+
+        protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             if(!Request.Headers.ContainsKey("Authorization")){
-                return AuthenticateResult.Fail("Authorization header mancante");
+                return  AuthenticateResult.Fail("Authorization header mancante");
+                //return AuthenticateResult.NoResult();
             }
             Utenti utente = null;
             bool IsOk = false;
@@ -43,10 +50,10 @@ namespace Articoli_Web_Service.Security
                 var username = credentials[0];
                 var password = credentials[1];
 
-                IsOk = userService.Authenticate(username, password);
+                IsOk = await userService.Authenticate(username, password);
 
                 if(IsOk){
-                    utente = userService.GetUser(username);
+                    utente = await userService.GetUser(username);
                 }
             }
             catch{
@@ -69,9 +76,11 @@ namespace Articoli_Web_Service.Security
             var identity = new ClaimsIdentity(claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, Scheme.Name);
-
+            //throw new NotImplementedException();
             return AuthenticateResult.Success(ticket);
 
         }
+
+        
     }
 }

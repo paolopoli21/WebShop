@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Articoli_Web_Service.Security;
+using Articoli_Web_Service.Services;
 using ArticoliWebService.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
@@ -33,7 +34,8 @@ namespace Articoli_Web_Service
 
             services.AddCors(opt =>{
                 opt.AddPolicy("CorsPolicy", policy =>{
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200").WithMethods("POST","PUT","DELETE","GET");
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+                    //.WithMethods("POST","PUT","DELETE","GET");
                 });
             });
           
@@ -46,6 +48,7 @@ namespace Articoli_Web_Service
             services.AddAuthentication("BasicAuthentication")
             .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
             services.AddScoped<IArticoliRepository, ArticoliRepository>();
+            services.AddScoped<IUserService, UserService>();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }

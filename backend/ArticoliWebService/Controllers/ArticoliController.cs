@@ -6,6 +6,7 @@ using ArticoliWebService.Dtos;
 using ArticoliWebService.Models;
 using ArticoliWebService.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArticoliWebService.Controllers
@@ -13,6 +14,7 @@ namespace ArticoliWebService.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/articoli")]
+    [Authorize(Roles = "ADMIN, USER")]
     public class ArticoliController: Controller
     {
         private readonly IArticoliRepository articolirepository;
@@ -28,8 +30,10 @@ namespace ArticoliWebService.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type =  typeof(IEnumerable<Articoli>))]
         public async Task<ActionResult<IEnumerable<ArticoliDto>>> GetArticoliByDesc(string filter, [FromQuery] string idCat){
+        //public async Task<ActionResult<IEnumerable<ArticoliDto>>> GetArticoliByDesc(string filter){
             var articoliDto = new List<ArticoliDto>() ;
             var articoli = await this.articolirepository.SelArticoliByDescrizione(filter, idCat);
+            //var articoli = await this.articolirepository.SelArticoliByDescrizione(filter);
                if(!ModelState.IsValid){
                 return BadRequest(ModelState);
             } 
@@ -57,7 +61,9 @@ namespace ArticoliWebService.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type =  typeof(ArticoliDto))]
-        public async Task<IActionResult> GetArticoloByCode(string CodArt){
+        [AllowAnonymous]
+        public async Task<IActionResult> GetArticoloByCode(string CodArt)
+        {
             if(!this.articolirepository.ArticoloExits(CodArt)){
                 return NotFound(string.Format("Articolo non codice '{0}'", CodArt));
             }
@@ -120,6 +126,7 @@ namespace ArticoliWebService.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(422)]
         [ProducesResponseType(500)]
+        //[Authorize(Roles = "ADMIN")]
         public IActionResult SaveArticoli([FromBody] Articoli articolo)
         {
             if(articolo == null){
