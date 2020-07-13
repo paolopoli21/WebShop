@@ -64,6 +64,7 @@ namespace Articoli_Web_Service
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
