@@ -32,9 +32,10 @@ export class AuthappService {
   }
 
   autenticaService(UserId: string, Passwor: string){
+    let AuthString = "Basic" + window.btoa(UserId + ":" + Passwor)
     let headers = new HttpHeaders(
       {
-        Authorization: "Basic" + window.btoa(UserId + ":" + Passwor)
+        Authorization: AuthString
       }
     );
 
@@ -42,6 +43,7 @@ export class AuthappService {
       map(
         data => {
           sessionStorage.setItem("Utente", UserId);
+          sessionStorage.setItem("AuthToken", AuthString);
           return data;
         }
       )
@@ -52,6 +54,15 @@ export class AuthappService {
   loggerUser(){
     let utente = sessionStorage.getItem("Utente");
     return (utente != null)? utente: "";
+  }
+
+  getAuthToken(){
+    if(this.loggerUser){
+      return sessionStorage.getItem("AuthToken");
+    }
+    else{
+      return "";
+    }
   }
 
   isLogged(){

@@ -1,26 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
+import { AuthappService } from '../authapp.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptService implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private BasicAuth: AuthappService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler){
-    let UserId ="Admin";
-    let Password = "VerySecretPwd";
-    let AuthHeader = "Basic " + window.btoa(UserId + ":" + Password);
+    // let UserId ="Admin";
+    // let Password = "VerySecretPwd";
+    // let AuthHeader = "Basic " + window.btoa(UserId + ":" + Password);
 
-    request = request.clone(
-      {
-        setHeaders :
+    let AuthToken = this.BasicAuth.getAuthToken();
+    let User = this.BasicAuth.loggerUser();
+    if(AuthToken && User){
+      request = request.clone(
         {
-          Authorization: AuthHeader
+          setHeaders :
+          {
+            Authorization: AuthToken
+          }
         }
-      }
-    );
-    return next.handle(request);
+      );
+      return next.handle(request);
+    }
   }
 }
