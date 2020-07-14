@@ -56,3 +56,11 @@ C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\
 C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
+C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Software\WebShop2\WebShop\backend\ArticoliWebService\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
