@@ -7,16 +7,17 @@ import { ArticoliComponent } from './articoli/articoli.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RouteGuardService } from './services/route-guard.service';
 import { NewartComponent } from './newart/newart.component';
+import { Ruoli } from 'src/models/Ruoli';
 
 
 const routes: Routes = [
   {path: '',component: LoginComponent},
   {path: 'index',component: LoginComponent},
   {path:'login', component: LoginComponent},
-  {path: 'welcome/:userid', component:WelcomeComponent, canActivate:[RouteGuardService]},
-  {path: 'articoli', component: ArticoliComponent,canActivate:[RouteGuardService]},
-  {path: 'articoli/:filter', component: ArticoliComponent,canActivate:[RouteGuardService]},
-  {path: 'newart/:codart', component: NewartComponent,canActivate:[RouteGuardService]},
+  {path: 'welcome/:userid', component:WelcomeComponent, canActivate:[RouteGuardService], data:{roles: [Ruoli.utente]}},
+  {path: 'articoli', component: ArticoliComponent,canActivate:[RouteGuardService], data:{roles: [Ruoli.utente]}},
+  {path: 'articoli/:filter', component: ArticoliComponent,canActivate:[RouteGuardService], data:{roles: [Ruoli.utente]}},
+  {path: 'newart/:codart', component: NewartComponent,canActivate:[RouteGuardService], data:{roles: [Ruoli.amministratore]}},
   {path: 'logout', component: LogoutComponent},
   {path: '**', component: ErrorComponent}
 ];
