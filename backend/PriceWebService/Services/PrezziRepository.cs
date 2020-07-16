@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Services
 {
-    public class PrezziRepository
+    public class PrezziRepository: IPrezziRepository
     {
         private AlphaShopDbContext alphaShopDbContext;
 
