@@ -1,6 +1,7 @@
 using System;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
@@ -38,6 +39,7 @@ namespace Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(422)]
         [ProducesResponseType(500)]
+        [Authorize(Roles ="ADMIN")]
         public IActionResult SaveListino([FromBody] Listini listino)
         {
             if (listino == null)

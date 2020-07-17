@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
@@ -10,6 +11,7 @@ namespace Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/prezzi")]
+    [Authorize(Roles = "ADMIN, USER")]
     public class PrezziController : Controller
     {
         private readonly IPrezziRepository prezziRepository;

@@ -117,18 +117,6 @@ namespace ArticoliWebService.Controllers
             if(articolo == null){
                 return NotFound(string.Format("Articolo non trovato '{0}'", Ean));
             }
-            // var articoliDto = new ArticoliDto
-            // {
-            //     CodArt = articolo.CodArt,
-            //     Descrizione = articolo.Descrizione,
-            //     Um = articolo.Um,
-            //     CodStat = articolo.CodStat,
-            //     PzCart = articolo.PzCart,
-            //     PesoNetto = articolo.PesoNetto,
-            //     DataCreazione = articolo.DataCreazione,
-            //     Categoria = articolo.famAssort.Descrizione,
-            //     IdStatoArt = articolo.IdStatoArt
-            // };
 
             PrezziDTO prezzoDTO = await getPraceArtAsync(articolo.CodArt, IdList, accessToken);
             return Ok(CreateArticoloDTO(articolo, prezzoDTO));
