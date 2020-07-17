@@ -16,6 +16,14 @@ namespace ArticoliWebService.Dtos
          public string IdStatoArt{get; set;}
          public ICollection<BarcodeDto> Ean {get; set;}
 
+         public int? IdFamASS {get; set;}
+
+         public int? IdIva { get; set; }
+
          public string Categoria {get; set;}
+
+         public decimal Prezzo { get; set; }
+
+         
     }
 }

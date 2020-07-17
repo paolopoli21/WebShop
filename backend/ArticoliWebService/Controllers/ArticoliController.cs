@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Articoli_Web_Service.Dtos;
 using Articoli_Web_Service.Models;
 using ArticoliWebService.Dtos;
 using ArticoliWebService.Models;
@@ -8,6 +10,7 @@ using ArticoliWebService.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ArticoliWebService.Controllers
 {
@@ -64,28 +67,56 @@ namespace ArticoliWebService.Controllers
 
             return Ok(mapper.Map<IEnumerable<ArticoliDto>>(articoli));
         }
-        [HttpGet("cerca/codice/{CodArt}", Name = "GetArticoli")]
+
+        private async Task<PrezziDTO> getPraceArtAsync(string CodArt, string IdList, string Token)
+        {
+            PrezziDTO prezzo = null;
+            using(var client = new HttpClient())
+            {
+                Token = Token.Replace("Bearer ", "");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Token);
+                string EndPointPrezzo = "http://localhost:5071/api/prezzi":
+                var result = await client.GetAsync(EndPointPrezzo + CodArt + "/" + IdList);
+                var response = await result.Content.ReadAsStringAsync();
+                prezzo = JsonConvert.DeserializeObject<PrezziDTO>(response);
+            }
+
+            return prezzo;
+        }
+
+        [HttpGet("cerca/codice/{CodArt}/{IdList?}", Name = "GetArticoli")]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type =  typeof(ArticoliDto))]
         [AllowAnonymous]
-        public async Task<IActionResult> GetArticoloByCode(string CodArt)
+        public async Task<IActionResult> GetArticoloByCode(string CodArt, string IdList)
         {
+            string accessToken = Request.Headers["Authorization"];
+
+            IdList = (IdList == null)? "1": IdList;
+
             if(!this.articolirepository.ArticoloExits(CodArt)){
                 return NotFound(string.Format("Articolo non codice '{0}'", CodArt));
             }
 
             var articolo = await this.articolirepository.SelArticoloByCodice(CodArt);
-            //var barcodeDto = new List<BarcodeDto>();
-            //  foreach(var ean in articolo.Barcode)
-            // {
-            //     barcodeDto.Add(new BarcodeDto
-            //     {
-            //         Barcode = ean.Barcode,
-            //         Tipo = ean.IdTipoArt
-            //     });
-            // }
+            PrezziDTO prezzoDTO = await getPraceArtAsync(articolo.CodArt, IdList, accessToken);
+             return Ok(CreateArticoloDTO(articolo, prezzoDTO));
+        }
 
+        [HttpGet("cerca/barcode/{Ean}/{IdList?}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(200, Type = typeof(ArticoliDto))]
+        public async Task<IActionResult> GetArticoliByEan(string Ean, string IdList)
+        {
+            string accessToken = Request.Headers["Authorization"];
+            IdList = (IdList == null)? "1": IdList;
+
+            var articolo = await this.articolirepository.SelArticoloByEan(Ean);
+            if(articolo == null){
+                return NotFound(string.Format("Articolo non trovato '{0}'", Ean));
+            }
             // var articoliDto = new ArticoliDto
             // {
             //     CodArt = articolo.CodArt,
@@ -95,37 +126,12 @@ namespace ArticoliWebService.Controllers
             //     PzCart = articolo.PzCart,
             //     PesoNetto = articolo.PesoNetto,
             //     DataCreazione = articolo.DataCreazione,
-            //     Ean = barcodeDto,
             //     Categoria = articolo.famAssort.Descrizione,
             //     IdStatoArt = articolo.IdStatoArt
             // };
-            //return Ok(mapper.Map<ArticoliDto>(articoli));
-             return Ok(CreateArticoloDTO(articolo));
-            //return Ok(articoliDto);
-        }
 
-        [HttpGet("cerca/barcode/{Ean}")]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(200, Type = typeof(ArticoliDto))]
-        public async Task<IActionResult> GetArticoliByEan(string Ean){
-            var articolo = await this.articolirepository.SelArticoloByEan(Ean);
-            if(articolo == null){
-                return NotFound(string.Format("Articolo non trovato '{0}'", Ean));
-            }
-            var articoliDto = new ArticoliDto
-            {
-                CodArt = articolo.CodArt,
-                Descrizione = articolo.Descrizione,
-                Um = articolo.Um,
-                CodStat = articolo.CodStat,
-                PzCart = articolo.PzCart,
-                PesoNetto = articolo.PesoNetto,
-                DataCreazione = articolo.DataCreazione,
-                Categoria = articolo.famAssort.Descrizione,
-                IdStatoArt = articolo.IdStatoArt
-            };
-            return Ok(articoliDto);
+            PrezziDTO prezzoDTO = await getPraceArtAsync(articolo.CodArt, IdList, accessToken);
+            return Ok(CreateArticoloDTO(articolo, prezzoDTO));
         }
 
         [HttpPost("inserisci")]
@@ -245,7 +251,7 @@ namespace ArticoliWebService.Controllers
             return Ok(new InfoMsg(DateTime.Today, $"Eliminazione articolo {codart} eseguita con successo!"));
         }
 
-         private ArticoliDto CreateArticoloDTO(Articoli articolo)
+         private ArticoliDto CreateArticoloDTO(Articoli articolo, PrezziDTO prezzoDTO)
         {
             var barcodeDto = new List<BarcodeDto>();
             
@@ -271,11 +277,14 @@ namespace ArticoliWebService.Controllers
                 //IdFamAss = articolo.IdFamAss,
                 IdStatoArt = (articolo.IdStatoArt != null) ? articolo.IdStatoArt.Trim() : "",
                 //IdIva = articolo.IdIva,
-                Categoria = (articolo.famAssort != null) ? articolo.famAssort.Descrizione : "Non Definito"
+                Categoria = (articolo.famAssort != null) ? articolo.famAssort.Descrizione : "Non Definito",
+                Prezzo = prezzoDTO.Prezzo
             };
 
             return articoliDto;
         }
+
+       
 
         
     }
